@@ -31,7 +31,7 @@ def translateWord(word):
 	translatesTo += " " + gs.translate(word, 'en')
 	translatesTo += " " + gs.translate(word, 'en')
 
-	return translatesTo
+	return translatesTo.encode('ascii', 'ignore')
 
 # Mashape World Cloud API
 # These code snippets use an open-source library.
@@ -42,12 +42,12 @@ def wordCloud(word):
 	    "Content-Type": "application/json",
 	    "Accept": "application/json"
 	  },
-	  params=("{\"f_type\":\"png\",\"width\":800,\"height\":500,\"s_max\":\"7\",\"s_min\":\"1\",\"f_min\":1,\"r_color\":\"TRUE\",\"r_order\":\"TRUE\",\"s_fit\":\"FALSE\",\"fixed_asp\":\"TRUE\",\"rotate\":\"TRUE\",\"textblock\": \"Hallo Dia duit Hola Bonjour hello hello\"}")
+	  params=("{\"f_type\":\"png\",\"width\":800,\"height\":500,\"s_max\":\"7\",\"s_min\":\"1\",\"f_min\":1,\"r_color\":\"TRUE\",\"r_order\":\"TRUE\",\"s_fit\":\"FALSE\",\"fixed_asp\":\"TRUE\",\"rotate\":\"TRUE\",\"textblock\": \"" + word + "\"}")
 	)
 
 	print response.body
 
 user_input = raw_input("Please input 1 word or a phrase: ")
-wordCloud(user_input)
 translations = translateWord(user_input)
+wordCloud(translations)
 print translations
