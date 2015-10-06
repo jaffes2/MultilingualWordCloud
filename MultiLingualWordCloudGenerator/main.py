@@ -1,5 +1,5 @@
 import unirest
-
+import goslate
 # response = unirest.post("http://httpbin.org/post", headers={ "Accept": "application/json" }, params={ "parameter": 23, "foo": "bar" })
 
 # response.code # The HTTP status code
@@ -9,10 +9,29 @@ import unirest
 
 # print response.body
 
-#Microsoft Translator API
-def translate(word):
+# Goslate provides free python API calls to Google Translation service by 
+# querying google translation website
+def translateWord(word):
 	# API Call to translate word into multiple languages
-	print "hello"
+ 	translatesTo = ""
+ 	gs = goslate.Goslate()
+
+ 	languages = gs.get_languages()
+
+ 	#print languages
+
+	translatesTo += gs.translate(word, 'de')
+	translatesTo += " " + gs.translate(word, 'zh')
+	translatesTo += " " + gs.translate(word, 'ga')
+	translatesTo += " " + gs.translate(word, 'es')
+	translatesTo += " " + gs.translate(word, 'sv')
+	translatesTo += " " + gs.translate(word, 'ar')
+	translatesTo += " " + gs.translate(word, 'fr')
+	translatesTo += " " + gs.translate(word, 'ru')
+	translatesTo += " " + gs.translate(word, 'en')
+	translatesTo += " " + gs.translate(word, 'en')
+
+	return translatesTo
 
 # Mashape World Cloud API
 # These code snippets use an open-source library.
@@ -23,10 +42,12 @@ def wordCloud(word):
 	    "Content-Type": "application/json",
 	    "Accept": "application/json"
 	  },
-	  params=("{\"f_type\":\"png\",\"width\":800,\"height\":500,\"s_max\":\"7\",\"s_min\":\"1\",\"f_min\":1,\"r_color\":\"TRUE\",\"r_order\":\"TRUE\",\"s_fit\":\"FALSE\",\"fixed_asp\":\"TRUE\",\"rotate\":\"TRUE\",\"textblock\":\"word\"}")
+	  params=("{\"f_type\":\"png\",\"width\":800,\"height\":500,\"s_max\":\"7\",\"s_min\":\"1\",\"f_min\":1,\"r_color\":\"TRUE\",\"r_order\":\"TRUE\",\"s_fit\":\"FALSE\",\"fixed_asp\":\"TRUE\",\"rotate\":\"TRUE\",\"textblock\": \"Hallo Dia duit Hola Bonjour hello hello\"}")
 	)
 
 	print response.body
 
 user_input = raw_input("Please input 1 word or a phrase: ")
 wordCloud(user_input)
+translations = translateWord(user_input)
+print translations
