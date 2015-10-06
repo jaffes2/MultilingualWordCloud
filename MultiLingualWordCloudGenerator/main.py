@@ -45,9 +45,12 @@ def wordCloud(word):
 	  params=("{\"f_type\":\"png\",\"width\":800,\"height\":500,\"s_max\":\"7\",\"s_min\":\"1\",\"f_min\":1,\"r_color\":\"TRUE\",\"r_order\":\"TRUE\",\"s_fit\":\"FALSE\",\"fixed_asp\":\"TRUE\",\"rotate\":\"TRUE\",\"textblock\": \"" + word + "\"}")
 	)
 
-	print response.body
+	stringResponse = str(response.body)
+	url = stringResponse[stringResponse.find("https") : stringResponse.find(".png") + 4]
+	return url
 
 user_input = raw_input("Please input 1 word or a phrase: ")
 translations = translateWord(user_input)
-wordCloud(translations)
-print translations
+print wordCloud(translations)
+
+#print translations
